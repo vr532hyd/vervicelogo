@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo PNG Exporter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Montserrat:wght@600&family=Pacifico&family=Playfair+Display:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 font-sans text-gray-800">
+
+  <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-2xl flex flex-col items-center">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900">Vervice Brand Assets</h2>
+    
+    <!-- Controls -->
+    <div class="w-full bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Logo Color -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Logo Color</label>
+          <div class="flex items-center gap-3">
+            <input type="color" id="logoColorPicker" value="#6750A4" 
+                   class="w-10 h-10 p-0 border-2 border-gray-200 rounded cursor-pointer">
+            <input type="text" id="logoColorHex" value="#6750A4" maxlength="7" 
+                   class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none uppercase">
+          </div>
+        </div>
+
+        <!-- Wordmark Settings -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Wordmark Settings</label>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <input type="color" id="wordmarkColorPicker" value="#6750A4" 
+                     class="w-10 h-10 p-0 border-2 border-gray-200 rounded cursor-pointer">
+              <input type="text" id="wordmarkColorHex" value="#6750A4" maxlength="7" 
+                     class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none uppercase">
+            </div>
+            <select id="wordmarkFontSelect" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none cursor-pointer">
+              <option value="'Playfair Display', serif" style="font-family: 'Playfair Display', serif;">Playfair Display</option>
+              <option value="'Montserrat', sans-serif" style="font-family: 'Montserrat', sans-serif;">Montserrat</option>
+              <option value="'Cinzel', serif" style="font-family: 'Cinzel', serif;">Cinzel</option>
+              <option value="'Roboto', sans-serif" style="font-family: 'Roboto', sans-serif;">Roboto</option>
+              <option value="'Pacifico', cursive" style="font-family: 'Pacifico', cursive;">Pacifico</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Export Settings -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Export Settings</label>
+          <label class="flex items-center gap-2 cursor-pointer mt-3">
+            <input type="checkbox" id="transparentBg" checked class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 border-gray-300">
+            <span class="text-sm font-medium text-gray-700">Transparent Background</span>
+          </label>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Assets Grid -->
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Logo Asset -->
+      <div class="flex flex-col items-center group">
+        <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Logo Mark</h3>
+        <div class="bg-white border-2 border-dashed border-gray-200 rounded-xl w-full aspect-square flex justify-center items-center p-4 mb-4 group-hover:border-indigo-300 transition-colors">
+          <svg id="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" class="w-full h-full max-w-[200px]">
+            <circle cx="150" cy="150" r="110" fill="none" stroke="#6750A4" stroke-width="8" stroke-linecap="round" stroke-dasharray="57.596 115.192" transform="rotate(30 150 150)" />
+            <path d="M 150, 230 C 130, 205, 115, 150, 105, 85 C 125, 115, 135, 150, 150, 190 C 165, 150, 175, 115, 195, 85 C 185, 150, 170, 205, 150, 230 Z" fill="#6750A4" />
+          </svg>
+        </div>
+        <button onclick="downloadAsset('logo-svg', 'vervice_logo.png', 1024, 1024)" 
+                class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-lg transition-all active:scale-95 shadow-sm">
+          Export Logo (1024x1024)
+        </button>
+      </div>
+
+      <!-- Wordmark Asset -->
+      <div class="flex flex-col items-center group">
+        <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Wordmark</h3>
+        <div class="bg-white border-2 border-dashed border-gray-200 rounded-xl w-full aspect-square flex justify-center items-center p-4 mb-4 group-hover:border-indigo-300 transition-colors">
+          <svg id="text-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" class="w-full h-auto">
+            <defs>
+              <style>
+                @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&amp;family=Montserrat:wght@600&amp;family=Pacifico&amp;family=Playfair+Display:wght@400;600&amp;family=Roboto:wght@500&amp;display=swap');
+              </style>
+            </defs>
+            <text x="50%" y="55%" font-family="'Playfair Display', serif" font-size="120" font-weight="600" fill="#6750A4" text-anchor="middle" dominant-baseline="central">Vervice</text>
+          </svg>
+        </div>
+        <button onclick="downloadAsset('text-svg', 'vervice_wordmark.png', 1800, 600)" 
+                class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-lg transition-all active:scale-95 shadow-sm">
+          Export Wordmark (1800x600)
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Color Picker Synchronization Logic
+    const logoColorPicker = document.getElementById('logoColorPicker');
+    const logoColorHex = document.getElementById('logoColorHex');
+    
+    const wordmarkColorPicker = document.getElementById('wordmarkColorPicker');
+    const wordmarkColorHex = document.getElementById('wordmarkColorHex');
+    const wordmarkFontSelect = document.getElementById('wordmarkFontSelect');
+    
+    const wordmarkText = document.querySelector('#text-svg text');
+    const logoCircle = document.querySelector('#logo-svg circle');
+    const logoPath = document.querySelector('#logo-svg path');
+
+    function updateLogoColor(color) {
+      // Sync Logo Inputs
+      logoColorPicker.value = color;
+      logoColorHex.value = color.toUpperCase();
+      
+      // Update Logo SVG
+      logoCircle.setAttribute('stroke', color);
+      logoPath.setAttribute('fill', color);
+    }
+
+    function updateWordmarkColor(color) {
+      // Sync Wordmark Inputs
+      wordmarkColorPicker.value = color;
+      wordmarkColorHex.value = color.toUpperCase();
+      
+      // Update Wordmark SVG
+      wordmarkText.setAttribute('fill', color);
+    }
+
+    // Logo Listeners
+    logoColorPicker.addEventListener('input', (e) => updateLogoColor(e.target.value));
+    logoColorHex.addEventListener('input', (e) => {
+      let hex = e.target.value.trim();
+      if (!hex.startsWith('#')) hex = '#' + hex;
+      if (/^#[0-9A-F]{6}$/i.test(hex)) updateLogoColor(hex);
+    });
+
+    // Wordmark Listeners
+    wordmarkColorPicker.addEventListener('input', (e) => updateWordmarkColor(e.target.value));
+    wordmarkColorHex.addEventListener('input', (e) => {
+      let hex = e.target.value.trim();
+      if (!hex.startsWith('#')) hex = '#' + hex;
+      if (/^#[0-9A-F]{6}$/i.test(hex)) updateWordmarkColor(hex);
+    });
+
+    // Font Listener
+    wordmarkFontSelect.addEventListener('change', (e) => {
+      wordmarkText.setAttribute('font-family', e.target.value);
+    });
+
+    // Handle Asset Downloading via Canvas
+    function downloadAsset(svgId, filename, exportWidth, exportHeight) {
+      const svg = document.getElementById(svgId);
+      
+      // Serialize the SVG to a string
+      const svgData = new XMLSerializer().serializeToString(svg);
+      
+      // Create a Blob URL (Better support for fonts and special characters than base64)
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const DOMURL = window.URL || window.webkitURL || window;
+      const url = DOMURL.createObjectURL(svgBlob);
+      
+      const canvas = document.createElement("canvas");
+      canvas.width = exportWidth;
+      canvas.height = exportHeight;
+      const ctx = canvas.getContext("2d");
+      
+      const img = new Image();
+      
+      img.onload = function() {
+        const isTransparent = document.getElementById('transparentBg').checked;
+        
+        // Fill white background if transparency is turned off
+        if (!isTransparent) {
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Draw the SVG image onto the canvas
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // Convert canvas to PNG Data URL
+        const pngFile = canvas.toDataURL("image/png");
+        
+        // Trigger download
+        const downloadLink = document.createElement("a");
+        downloadLink.download = filename;
+        downloadLink.href = pngFile;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        // Clean up memory
+        DOMURL.revokeObjectURL(url);
+      };
+      
+      img.src = url;
+    }
+  </script>
+</body>
+</html>
