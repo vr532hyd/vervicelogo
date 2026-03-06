@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Logo PNG Exporter</title>
+  <style>
+    /* Transparency Checkerboard Pattern */
+    .bg-checkerboard {
+      background-color: #ffffff;
+      background-image: linear-gradient(45deg, #f3f4f6 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f3f4f6 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f3f4f6 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f3f4f6 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+  </style>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +45,8 @@
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-2">Wordmark Settings</label>
           <div class="flex flex-col gap-3">
+            <input type="text" id="brandTextInput" value="Vervice" placeholder="Enter brand name..." 
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
             <div class="flex items-center gap-3">
               <input type="color" id="wordmarkColorPicker" value="#6750A4" 
                      class="w-10 h-10 p-0 border-2 border-gray-200 rounded cursor-pointer">
@@ -67,22 +81,28 @@
       <!-- Logo Asset -->
       <div class="flex flex-col items-center group">
         <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Logo Mark</h3>
-        <div class="bg-white border-2 border-dashed border-gray-200 rounded-xl w-full aspect-square flex justify-center items-center p-4 mb-4 group-hover:border-indigo-300 transition-colors">
+        <div class="bg-checkerboard border-2 border-dashed border-gray-300 rounded-xl w-full aspect-square flex justify-center items-center p-4 mb-4 group-hover:border-indigo-400 transition-colors">
           <svg id="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" class="w-full h-full max-w-[200px]">
             <circle cx="150" cy="150" r="110" fill="none" stroke="#6750A4" stroke-width="8" stroke-linecap="round" stroke-dasharray="57.596 115.192" transform="rotate(30 150 150)" />
             <path d="M 150, 230 C 130, 205, 115, 150, 105, 85 C 125, 115, 135, 150, 150, 190 C 165, 150, 175, 115, 195, 85 C 185, 150, 170, 205, 150, 230 Z" fill="#6750A4" />
           </svg>
         </div>
-        <button onclick="downloadAsset('logo-svg', 'vervice_logo.png', 1024, 1024)" 
-                class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-lg transition-all active:scale-95 shadow-sm">
-          Export Logo (1024x1024)
-        </button>
+        <div class="flex gap-3 w-full">
+          <button onclick="downloadAsset('logo-svg', 'brand_logo.png', 1024, 1024)" 
+                  class="flex-1 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-3 rounded-lg transition-all active:scale-95 shadow-sm text-sm">
+            PNG (1024x)
+          </button>
+          <button onclick="downloadSVG('logo-svg', 'brand_logo.svg')" 
+                  class="flex-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-medium py-2.5 px-3 rounded-lg transition-all active:scale-95 shadow-sm text-sm">
+            SVG Vector
+          </button>
+        </div>
       </div>
 
       <!-- Wordmark Asset -->
       <div class="flex flex-col items-center group">
         <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Wordmark</h3>
-        <div class="bg-white border-2 border-dashed border-gray-200 rounded-xl w-full aspect-square flex justify-center items-center p-4 mb-4 group-hover:border-indigo-300 transition-colors">
+        <div class="bg-checkerboard border-2 border-dashed border-gray-300 rounded-xl w-full aspect-square flex justify-center items-center p-4 mb-4 group-hover:border-indigo-400 transition-colors">
           <svg id="text-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" class="w-full h-auto">
             <defs>
               <style>
@@ -92,10 +112,16 @@
             <text x="50%" y="55%" font-family="'Playfair Display', serif" font-size="120" font-weight="600" fill="#6750A4" text-anchor="middle" dominant-baseline="central">Vervice</text>
           </svg>
         </div>
-        <button onclick="downloadAsset('text-svg', 'vervice_wordmark.png', 1800, 600)" 
-                class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-lg transition-all active:scale-95 shadow-sm">
-          Export Wordmark (1800x600)
-        </button>
+        <div class="flex gap-3 w-full">
+          <button onclick="downloadAsset('text-svg', 'brand_wordmark.png', 1800, 600)" 
+                  class="flex-1 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-3 rounded-lg transition-all active:scale-95 shadow-sm text-sm">
+            PNG (1800x)
+          </button>
+          <button onclick="downloadSVG('text-svg', 'brand_wordmark.svg')" 
+                  class="flex-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-medium py-2.5 px-3 rounded-lg transition-all active:scale-95 shadow-sm text-sm">
+            SVG Vector
+          </button>
+        </div>
       </div>
 
     </div>
@@ -109,6 +135,7 @@
     const wordmarkColorPicker = document.getElementById('wordmarkColorPicker');
     const wordmarkColorHex = document.getElementById('wordmarkColorHex');
     const wordmarkFontSelect = document.getElementById('wordmarkFontSelect');
+    const brandTextInput = document.getElementById('brandTextInput');
     
     const wordmarkText = document.querySelector('#text-svg text');
     const logoCircle = document.querySelector('#logo-svg circle');
@@ -152,6 +179,12 @@
     // Font Listener
     wordmarkFontSelect.addEventListener('change', (e) => {
       wordmarkText.setAttribute('font-family', e.target.value);
+    });
+
+    // Text Input Listener
+    brandTextInput.addEventListener('input', (e) => {
+      // Use a non-breaking space if empty so the SVG element doesn't collapse
+      wordmarkText.textContent = e.target.value || '\u00A0';
     });
 
     // Handle Asset Downloading via Canvas
@@ -201,6 +234,29 @@
       };
       
       img.src = url;
+    }
+
+    // Handle Native SVG Downloading
+    function downloadSVG(svgId, filename) {
+      const svg = document.getElementById(svgId);
+      
+      // Serialize the SVG to a string
+      const svgData = new XMLSerializer().serializeToString(svg);
+      
+      // Create a Blob containing the SVG data
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      
+      // Trigger download
+      const downloadLink = document.createElement("a");
+      downloadLink.download = filename;
+      downloadLink.href = url;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      
+      // Clean up memory
+      URL.revokeObjectURL(url);
     }
   </script>
 </body>
